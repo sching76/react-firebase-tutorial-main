@@ -39,7 +39,7 @@ function Index() {
     description: '',
     url: '',
   });
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<File | string>("");
   const [formError, setFormError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -81,9 +81,22 @@ function Index() {
     setInputData({ ...inputData, [field]: value})
   }
 
-  const handleImgChange = (e: React.FormEvent<HTMLFormElement>) => {
-    setImage(e.target.files[0]);
-  }
+  const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setImage(files[0]);
+    }
+  };
+  
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      console.log("Selected file:", file);
+    }
+  };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,7 +122,17 @@ function Index() {
         progress: undefined,
         theme: "dark",
         });
-      setTools([...tools,{ id: docRef.id, ...newTool}]);
+      //setTools([...tools,{ id: docRef.id, ...newTool}]);
+      setTools([
+        ...tools,
+        {
+          id: docRef.id,
+          title: newTool.title || "",
+          description: newTool.description || "",
+          url: newTool.url || "",
+        },
+      ]);
+
       setInputData({
         title: '',
         description: '',
