@@ -1,4 +1,5 @@
-import { React , useRef, useState, useEffect } from 'react';
+import React from "react";
+import { useRef, useState, useEffect } from 'react';
 import { Dialog } from '@headlessui/react';
 import { useAuthState } from '~/components/contexts/UserContext';
 import { SignInButton } from '~/components/domain/auth/SignInButton';

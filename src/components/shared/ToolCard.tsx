@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 interface ToolCardProps {
     tool: Tool,
-    onUpdate: (data: Partial<Tool>) => void
+    onUpdate: (id: string, data: Partial<Tool>) => void
 }
 
 
